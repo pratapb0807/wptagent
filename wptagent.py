@@ -298,7 +298,7 @@ class WPTAgent(object):
                 print("Missing {0} module. Please run 'pip install {1}'".format(module, module_name))
         return ret
 
-    def startup(self):
+    def startup(self, browsers):
         """Validate that all of the external dependencies are installed"""
         ret = True
 
@@ -319,6 +319,10 @@ class WPTAgent(object):
         # Windows-specific imports
         if platform.system() == "Windows":
             ret = self.requires('win32api', 'pywin32') and ret
+
+        # browser-specific support
+        if 'Firefox' in browsers:
+            ret = self.requires('selenium')
 
         # Optional imports
         self.requires('brotli')
@@ -355,7 +359,13 @@ class WPTAgent(object):
                 subprocess.check_output(['traceroute', '--version'])
             except Exception:
                 logging.debug("Traceroute is missing, installing...")
-                subprocess.call(['sudo', 'apt-get', '-yq', 'install', 'traceroute'])
+                subprocess.call(['sudo', 'apt', '-yq', 'install', 'traceroute'])
+            if 'Firefox' in browsers:
+                try:
+                    subprocess.check_output(['geckodriver', '-V'])
+                except Exception:
+                    logging.debug("geckodriver is missing, installing...")
+                    subprocess.call(['sudo', 'apt', '-yq', 'install', 'firefox-geckodriver'])
 
         # If we are on Linux and there is no display, enable xvfb by default
         if platform.system() == "Linux" and not self.options.android and \
@@ -776,14 +786,6 @@ def find_browsers():
     logging.debug('Detected Browsers:')
     for browser in browsers:
         logging.debug('%s: %s', browser, browsers[browser]['exe'])
-    if 'Firefox' in browsers and sys.version_info < (3, 0):
-        try:
-            # make sure marionette is up to date
-            from internal.os_util import run_elevated
-            run_elevated(sys.executable, '-m pip install --upgrade marionette_driver')
-            run_elevated(sys.executable, '-m pip install \'mozrunner==7.4.0\' --force-reinstall')
-        except Exception:
-            pass
 
     return browsers
 
@@ -991,7 +993,7 @@ def main():
         get_browser_versions(browsers)
 
     agent = WPTAgent(options, browsers)
-    if agent.startup():
+    if agent.startup(browsers):
         # Create a work directory relative to where we are running
         print("Running agent, hit Ctrl+C to exit")
         agent.run_testing()

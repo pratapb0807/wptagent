@@ -186,7 +186,8 @@ class FirefoxLogParser(object):
                             elif msg['category'] == 'nsHostResolver':
                                 self.dns_entry(msg)
             except Exception:
-                logging.exception('Error processing log line')
+                pass
+                #logging.exception('Error processing log line')
 
     def main_thread_http_entry(self, msg):
         """Process a single HTTP log line from the main thread"""
