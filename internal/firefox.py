@@ -138,13 +138,18 @@ class Firefox(DesktopBrowser):
 
         try:
             from selenium import webdriver # pylint: disable=import-error
-            from selenium.webdriver.firefox.options import Options as FirefoxOptions
             from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
             profile = webdriver.FirefoxProfile(task['profile'])
             self.configure_prefs(profile)
             binary = FirefoxBinary(self.path)
-            self.driver = webdriver.Firefox(firefox_profile=profile, firefox_binary=binary)
+            capabilities = webdriver.DesiredCapabilities.FIREFOX.copy()
+            if 'ignoreSSL' in job and job['ignoreSSL']:
+                capabilities['acceptInsecureCerts'] = True
+            else:
+                capabilities['acceptInsecureCerts'] = False
+
+            self.driver = webdriver.Firefox(desired_capabilities=capabilities, firefox_profile=profile, firefox_binary=binary)
 
             self.driver.set_page_load_timeout(task['time_limit'])
             if 'browserVersion' in self.driver.capabilities:
@@ -226,7 +231,8 @@ class Firefox(DesktopBrowser):
                             profile.set_preference(key, value)
                         except Exception:
                             logging.exception('Error setting prefs through webdriver')
-            profile.update_preferences()
+        # TODO: look through the script if there is one for any prefs
+        profile.update_preferences()
 
     def close_browser(self, job, task):
         """Terminate the browser but don't do all of the cleanup that stop does"""
@@ -239,7 +245,8 @@ class Firefox(DesktopBrowser):
             self.addons = None
         if self.driver is not None:
             try:
-                self.driver.quit()
+                #self.driver.quit()
+                self.driver.close()
             except Exception:
                 logging.exception('Error closing webdriver')
             self.driver = None
@@ -648,17 +655,17 @@ class Firefox(DesktopBrowser):
         # Collect end of test data from the browser
         self.collect_browser_metrics(task)
         # Collect the interactive periods
-        interactive = self.execute_js('window.wptagentGetInteractivePeriods();')
+        interactive = self.execute_js('return window.wrappedJSObject.wptagentGetInteractivePeriods();')
         if interactive is not None and len(interactive):
             interactive_file = os.path.join(task['dir'], task['prefix'] + '_interactive.json.gz')
             with gzip.open(interactive_file, GZIP_TEXT, 7) as f_out:
                 f_out.write(interactive)
-        long_tasks = self.execute_js('window.wptagentGetLongTasks();')
+        long_tasks = self.execute_js('return window.wrappedJSObject.wptagentGetLongTasks();')
         if long_tasks is not None and len(long_tasks):
             long_tasks_file = os.path.join(task['dir'], task['prefix'] + '_long_tasks.json.gz')
             with gzip.open(long_tasks_file, GZIP_TEXT, 7) as f_out:
                 f_out.write(long_tasks)
-        self.execute_js('window.wptagentResetLongTasks();')
+        self.execute_js('return window.wrappedJSObject.wptagentResetLongTasks();')
         # Close the browser if we are done testing (helps flush logs)
         if not len(task['script']):
             self.close_browser(self.job, task)
