@@ -245,8 +245,7 @@ class Firefox(DesktopBrowser):
             self.addons = None
         if self.driver is not None:
             try:
-                #self.driver.quit()
-                self.driver.close()
+                self.driver.quit()
             except Exception:
                 logging.exception('Error closing webdriver')
             self.driver = None
