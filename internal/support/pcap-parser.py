@@ -271,8 +271,8 @@ class Pcap():
         is_outbound = False
         if 'direction' in packet_info and packet_info['direction'] == 'out':
           is_outbound = True
-        elif packet_info['dst_port'] == 80 or packet_info['dst_port'] == 443 or packet_info['dst_port'] == 1080:
-          is_outbound = True
+#         elif packet_info['dst_port'] == 80 or packet_info['dst_port'] == 443 or packet_info['dst_port'] == 1080:
+        is_outbound = True
         if is_outbound:
           self.start_time = packet_info['time']
           if 'ethernet_src' in packet_info and self.local_ethernet_mac is None:
