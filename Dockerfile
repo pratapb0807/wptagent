@@ -80,4 +80,4 @@ COPY docker/linux-headless/entrypoint.sh /wptagent/entrypoint.sh
 
 WORKDIR /wptagent
 
-CMD ["/bin/bash", "/wptagent/entrypoint.sh"]
+#CMD ["/bin/bash", "/wptagent/entrypoint.sh"]
