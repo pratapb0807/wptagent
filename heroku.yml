@@ -3,4 +3,4 @@ build:
     web: Dockerfile
 run:
   web: /ubuntu_install.sh
-  web: python /wptagent/wptagent.py --server "http://www.workpagetest.org/work/" --location "Test" --xvfb --dockerized -vvvvv --shaper none --log wptagent.log
+  web: python /wptagent/wptagent.py --bind $PORT --server "http://www.workpagetest.org/work/" --location "Test" --xvfb --dockerized -vvvvv --shaper none --log wptagent.log
