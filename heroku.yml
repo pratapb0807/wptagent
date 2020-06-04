@@ -2,4 +2,4 @@ build:
   docker:
     worker: Dockerfile
 run:
-  worker: python /wptagent/wptagent.py --server "http://www.workpagetest.org/work/" --location "Test" --xvfb --dockerized -vvvv --shaper none --log wptagent.log
+  worker: python /wptagent/wptagent.py --key A.d4b3ce92120d6a82e78291587657d018 --server "http://www.workpagetest.org/work/" --location "Test" --xvfb --dockerized -vvvv --shaper none --log wptagent.log
