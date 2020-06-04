@@ -73,7 +73,7 @@ class WebSocketBaseClient(WebSocket):
         self.url = url
         self.host = None
         self.scheme = None
-        self.port = $PORT
+        self.port = None
         self.unix_socket_path = None
         self.resource = None
         self.ssl_options = ssl_options or {}
