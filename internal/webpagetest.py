@@ -816,7 +816,7 @@ class WebPageTest(object):
                         if target is not None and value is not None and len(target) and len(value):
                             addr = None
                             try:
-                                result = socket.getaddrinfo(value, $PORT)
+                                result = socket.getaddrinfo(value, 80)
                                 if result and len(result) > 0:
                                     for entry in result:
                                         if entry and len(entry) >= 5:
