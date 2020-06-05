@@ -2,4 +2,4 @@ build:
   docker:
     worker: Dockerfile
 run:
-  worker: python /wptagent/wptagent.py --server "http://wpt1.speedcurve.com:443/work/" --location "salesforce-01" --xvfb --dockerized -vvvvv --shaper none --log wptagent.log
+  worker: python /wptagent/wptagent.py --server "https://wpt1.speedcurve.com:80/work/" --location "salesforce-01" --xvfb --dockerized -vvvvv --shaper none --log wptagent.log

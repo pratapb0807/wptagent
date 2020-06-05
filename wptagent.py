@@ -403,14 +403,14 @@ class WPTAgent(object):
                 ret = False
 
         # Fix Lighthouse install permissions
-        if platform.system() != "Windows" and sys.version_info < (3, 0):
-            from internal.os_util import run_elevated
-            run_elevated('chmod', '-R 777 ~/.config/configstore/')
-            try:
-                import getpass
-                run_elevated('chown', '-R {0}:{0} ~/.config'.format(getpass.getuser()))
-            except Exception:
-                pass
+        # if platform.system() != "Windows" and sys.version_info < (3, 0):
+        #     from internal.os_util import run_elevated
+        #     run_elevated('chmod', '-R 777 ~/.config/configstore/')
+        #     try:
+        #         import getpass
+        #         run_elevated('chown', '-R {0}:{0} ~/.config'.format(getpass.getuser()))
+        #     except Exception:
+        #         pass
 
         # Check for Node 10+
         if self.get_node_version() < 10.0:
