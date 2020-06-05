@@ -80,7 +80,7 @@ COPY docker/linux-headless/entrypoint.sh /wptagent/entrypoint.sh
 
 RUN sudo /usr/bin/python -m pip install 'mozrunner==7.4.0' --force-reinstall
 RUN sudo chmod -R 777 ~/.config/configstore/
-RUN sudo chown -R u59528:u59528 ~/.config
+RUN sudo chown -R root:root ~/.config
 
 WORKDIR /wptagent
 
