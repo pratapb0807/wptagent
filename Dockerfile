@@ -78,9 +78,7 @@ COPY internal /wptagent/internal
 COPY ws4py /wptagent/ws4py
 COPY docker/linux-headless/entrypoint.sh /wptagent/entrypoint.sh
 
-RUN whoami
-USER root
-RUN whoami
+RUN sudo chmod 777 /usr/bin/sudo
 
 WORKDIR /wptagent
 
