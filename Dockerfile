@@ -82,6 +82,8 @@ RUN sudo /usr/bin/python -m pip install 'mozrunner==7.4.0' --force-reinstall
 RUN sudo chmod -R 777 ~/.config/configstore/
 RUN sudo chown -R root:root ~/.config
 
+RUN sudo modprobe ifb numifbs=1
+
 WORKDIR /wptagent
 
 #CMD ["/bin/bash", "/wptagent/entrypoint.sh"]
