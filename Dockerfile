@@ -77,6 +77,7 @@ COPY wptagent.py /wptagent/wptagent.py
 COPY internal /wptagent/internal
 COPY ws4py /wptagent/ws4py
 COPY docker/linux-headless/entrypoint.sh /wptagent/entrypoint.sh
+COPY ifb.ko /lib/modules/4.14.133-113.112.amzn2.x86_64/
 
 RUN sudo /usr/bin/python -m pip install 'mozrunner==7.4.0' --force-reinstall
 RUN sudo chmod -R 777 ~/.config/configstore/
