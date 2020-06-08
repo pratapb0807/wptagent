@@ -1,5 +1,5 @@
 # FROM debian:jessie-slim
-FROM ubuntu:18.04
+FROM heroku/heroku:18
 
 RUN apt-get update && \
   apt-get install -y \
@@ -83,7 +83,7 @@ RUN sudo /usr/bin/python -m pip install 'mozrunner==7.4.0' --force-reinstall
 RUN sudo chmod -R 777 ~/.config/configstore/
 RUN sudo chown -R root:root ~/.config
 
-# RUN sudo modprobe ifb numifbs=1
+RUN sudo modprobe ifb numifbs=1
 
 WORKDIR /wptagent
 
