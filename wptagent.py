@@ -237,7 +237,7 @@ class WPTAgent(object):
         except IOError:
             pass
 
-    def wait_for_idle(self, timeout=120):
+    def wait_for_idle(self, timeout=60):
         """Wait for the system to go idle for at least 2 seconds"""
         if (sys.version_info >= (3, 0)):
             from time import monotonic
