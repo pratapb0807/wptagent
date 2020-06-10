@@ -1,5 +1,5 @@
 # FROM debian:jessie-slim
-FROM ubuntu:18.04
+FROM heroku/heroku:18
 
 RUN apt-get update && \
   apt-get install -y \
