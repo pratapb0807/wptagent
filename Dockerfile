@@ -81,10 +81,12 @@ COPY docker/linux-headless/entrypoint.sh /wptagent/entrypoint.sh
 
 RUN sudo /usr/bin/python -m pip install 'mozrunner==7.4.0' --force-reinstall
 RUN sudo chmod -R 777 ~/.config/configstore/
+RUN sudo chmod -R 777 /wptagent/work/
 RUN sudo chown -R root:root ~/.config
+RUN sudo chown -R root:root /wptagent/work/
 
 # RUN sudo modprobe ifb numifbs=1
 
 WORKDIR /wptagent
 
-CMD python /wptagent/wptagent.py --server "http://wpt1.speedcurve.com/work/" --location "salesforce-01" --key "6spP6RTwq9UmAPYCQd8aPx8ULhjtGx"  --shaper none --shm-size=2gb --xvfb --dockerized -vvvvv --log wptagent.log
+CMD python /wptagent/wptagent.py --server "http://wpt1.speedcurve.com/work/" --location "salesforce-01" --key "6spP6RTwq9UmAPYCQd8aPx8ULhjtGx"  --shaper none --shm-size=1g --xvfb --dockerized -vvvvv --log wptagent.log
