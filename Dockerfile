@@ -87,4 +87,4 @@ RUN sudo chown -R root:root ~/.config
 
 WORKDIR /wptagent
 
-CMD python /wptagent/wptagent.py --server "http://wpt1.speedcurve.com/work/" --location "salesforce-01" --key "6spP6RTwq9UmAPYCQd8aPx8ULhjtGx"  --shaper none --shm-size=1gb --xvfb --dockerized -vvvvv --log wptagent.log
+CMD python /wptagent/wptagent.py --server "http://wpt1.speedcurve.com/work/" --location "salesforce-01" --key "6spP6RTwq9UmAPYCQd8aPx8ULhjtGx"  --shaper none --shm-size=2gb --xvfb --dockerized -vvvvv --log wptagent.log
