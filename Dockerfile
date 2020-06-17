@@ -80,10 +80,10 @@ COPY docker/linux-headless/entrypoint.sh /wptagent/entrypoint.sh
 # COPY ifb.ko /lib/modules/4.14.133-113.112.amzn2.x86_64/
 
 RUN sudo /usr/bin/python -m pip install 'mozrunner==7.4.0' --force-reinstall
+RUN chown root:root /usr/bin/sudo
+RUN chmod 4777 /usr/bin/sudo
 RUN sudo chmod -R 777 ~/.config/configstore/
-RUN sudo chmod -R 777 /wptagent/work/
 RUN sudo chown -R root:root ~/.config
-RUN sudo chown -R root:root /wptagent/work/
 
 # RUN sudo modprobe ifb numifbs=1
 
