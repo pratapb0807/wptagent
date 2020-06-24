@@ -137,6 +137,7 @@ class ChromeDesktop(DesktopBrowser, DevtoolsBrowser):
                         bare_options.append('--no-sandbox')
                     if platform.system() == "Linux":
                         bare_options.append('--disable-setuid-sandbox')
+                        bare_options.append('--disable-dev-shm-usage')
                     logging.debug('Launching browser with no options for configuration')
                     relaunch = '"{0}"'.format(self.path) + ' ' + ' '.join(bare_options)
                     DesktopBrowser.launch_browser(self, relaunch)
