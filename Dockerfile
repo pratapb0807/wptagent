@@ -55,7 +55,7 @@ RUN apt-get update && \
 # Cleaup to save space in layer
   sudo apt-get clean && \
 # Install lighthouse
-  npm install -g lighthouse && \
+  npm install -g lighthouse lighthouse-plugin-greenhouse && \
 # Install other utilities
   pip install \
     dnspython \
@@ -89,4 +89,4 @@ RUN sudo chown -R root:root ~/.config
 
 WORKDIR /wptagent
 
-CMD python /wptagent/wptagent.py --server "http://wpt1.speedcurve.com/work/" --location "salesforce-01" --key "6spP6RTwq9UmAPYCQd8aPx8ULhjtGx"  --shaper none --dockerized -vvvvv --log wptagent.log
+CMD python /wptagent/wptagent.py --server "http://wpt1.speedcurve.com/work/" --location "salesforce-01" --key "6spP6RTwq9UmAPYCQd8aPx8ULhjtGx"  --shaper none --dockerized -vvvvv --log /wptagent/logs.txt

@@ -1019,8 +1019,4 @@ def main():
 if __name__ == '__main__':
     main()
     # Force a hard exit so unclean threads can't hang the agent
-    print("OP ------------------------------- OP")
-    with open("log.txt") as infile:
-        for line in infile:
-            print(line)
     os._exit(0)
