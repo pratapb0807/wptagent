@@ -588,9 +588,9 @@ class DevtoolsBrowser(object):
                        '--disable-cpu-throttling',
                        '--throttling-method', 'provided',
                        '--enable-error-reporting',
-                       '--max-wait-for-load', str(int(time_limit * 5000)),
+                       '--max-wait-for-load', str(int(time_limit * 1000 * 3)),
                        '--port', str(task['port']),
-                       '--plugins','lighthouse-plugin-greenhouse',
+                    #    '--plugins','lighthouse-plugin-greenhouse',
                        '--output', 'html',
                        '--output', 'json',
                        '--output-path', '"{0}"'.format(output_path)]
