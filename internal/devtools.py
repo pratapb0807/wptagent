@@ -200,7 +200,7 @@ class DevTools(object):
         elif self.task['width'] == 1280:
             self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 655360, 'uploadThroughput': 131072, 'latency': 28})
             logging.debug("Network Emulated For Cable ...... ")
-        elif self.task['width'] == 320:
+        elif self.task['width'] == 340:
             self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 209715, 'uploadThroughput': 98304, 'latency': 150})
             logging.debug("Network Emulated For 3G Fast ...... ")
         else:
