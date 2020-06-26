@@ -193,7 +193,7 @@ class DevTools(object):
     def prepare_browser(self):
         """Run any one-time startup preparation before testing starts"""
         try:
-            self.send_command('Network.emulateNetworkConditions', { 'offline': false, 'downloadThroughput': 200 * 1024 / 8, 'uploadThroughput': 200 * 1024 / 8, 'latency': 20 })
+            self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 96000, 'uploadThroughput': 32000, 'latency': 100})
             logging.debug("Network Emulated ...... ")
         except:
             logging.debug("Network Emulation NOT working ....... ")
