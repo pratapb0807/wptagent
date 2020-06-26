@@ -84,6 +84,7 @@ RUN chown root:root /usr/bin/sudo
 RUN chmod 4777 /usr/bin/sudo
 RUN sudo chmod -R 777 ~/.config/configstore/
 RUN sudo chown -R root:root ~/.config
+RUN sudo tc qdisc add dev eth0 root netem delay 75ms rate 750kbit
 
 # RUN sudo modprobe ifb numifbs=1
 
