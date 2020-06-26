@@ -192,17 +192,21 @@ class DevTools(object):
 
     def prepare_browser(self):
         """Run any one-time startup preparation before testing starts"""
+        logging.debug("self.task ===> ")
+        logging.debug(self.task)
         if self.task['width'] == 375:
             self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 1572864, 'uploadThroughput': 1572864, 'latency': 70})
             logging.debug("Network Emulated For 4G LTE ...... ")
         elif self.task['width'] == 1280:
             self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 655360, 'uploadThroughput': 131072, 'latency': 28})
             logging.debug("Network Emulated For Cable ...... ")
-        elif self.task['width'] == 320
+        elif self.task['width'] == 320:
             self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 209715, 'uploadThroughput': 98304, 'latency': 150})
             logging.debug("Network Emulated For 3G Fast ...... ")
         else:
             logging.debug("Network Emulation NOT working ........")
+        # except:
+        #     logging.debug("")
         
         self.send_command('Target.setAutoAttach',
                           {'autoAttach': True, 'waitForDebuggerOnStart': True})
