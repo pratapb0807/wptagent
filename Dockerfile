@@ -41,12 +41,12 @@ RUN apt-get update && \
   google-chrome-stable \
   google-chrome-beta \
   google-chrome-unstable \
-  firefox \
-  firefox-trunk \
-  firefox-geckodriver \
-  opera-stable \
-  opera-beta \
-  opera-developer \
+  # firefox \
+  # firefox-trunk \
+  # firefox-geckodriver \
+  # opera-stable \
+  # opera-beta \
+  # opera-developer \
   nodejs && \
 # Get fonts
   echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections && \
