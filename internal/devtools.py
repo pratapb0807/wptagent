@@ -192,6 +192,11 @@ class DevTools(object):
 
     def prepare_browser(self):
         """Run any one-time startup preparation before testing starts"""
+        try:
+            self.send_command('Network.emulateNetworkConditions', { 'offline': false, 'downloadThroughput': 200 * 1024 / 8, 'uploadThroughput': 200 * 1024 / 8, 'latency': 20 })
+            logging.debug("Network Emulated ...... ")
+        except:
+            logging.debug("Network Emulation NOT working ....... ")
         self.send_command('Target.setAutoAttach',
                           {'autoAttach': True, 'waitForDebuggerOnStart': True})
         response = self.send_command('Target.getTargets', {}, wait=True)
