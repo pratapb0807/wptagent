@@ -206,9 +206,9 @@ class DevTools(object):
                         self.send_command('Target.attachToTarget', {'targetId': target['targetId']},
                                            wait=True)
 
-    def emulate_network(self, offline_opt=False, in_bps, out_bps, rtt):
+    def emulate_network(self, in_bps, out_bps, rtt):
         try:
-            self.send_command('Network.emulateNetworkConditions', { 'offline': offline_opt, 'downloadThroughput': in_bps, 'uploadThroughput': out_bps, 'latency': rtt})
+            self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': in_bps, 'uploadThroughput': out_bps, 'latency': rtt})
             logging.debug("Network Emulated...... ")
         except:
             logging.debug("Network Emulation NOT working ........")
