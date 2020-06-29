@@ -129,7 +129,6 @@ class NoShaper(object):
         """Enable traffic-shaping"""
         if in_bps > 0 or out_bps > 0 or rtt > 0 or plr > 0:
             logging.debug("inside NoShaper config ................")
-            DevTools.emulate_network(self, in_bps, out_bps, rtt)
         return True
 
 #

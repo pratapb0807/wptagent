@@ -543,6 +543,29 @@ class WebPageTest(object):
                 test_id = job['Test ID']
                 run = job['current_state']['run']
                 profile_dir = '{0}.{1}.{2:d}'.format(self.profile_dir, test_id, run)
+                # for connectivity profile
+                in_bps = 0
+                if 'bwIn' in job:
+                    in_bps = int(re.search(r'\d+', str(job['bwIn'])).group()) * 128
+                out_bps = 0
+                if 'bwOut' in job:
+                    out_bps = int(re.search(r'\d+', str(job['bwOut'])).group()) * 128
+                latency = 0
+                if 'latency' in job:
+                    latency = int(re.search(r'\d+', str(job['latency'])).group())
+                plr = .0
+                if 'plr' in job:
+                    plr = float(job['plr'])
+                if self.shaper is not None:
+                    # If a lighthouse test is running, force the Lighthouse 3G profile:
+                    # https://github.com/GoogleChrome/lighthouse/blob/master/docs/throttling.md
+                    # 1.6Mbps down, 750Kbps up, 150ms RTT
+                    if task['running_lighthouse'] and not job['lighthouse_throttle']:
+                        rtt = 150
+                        in_bps = 1600000
+                        out_bps = 750000
+                        plr = .0
+
                 task = {'id': test_id,
                         'run': run,
                         'cached': 1 if job['current_state']['repeat_view'] else 0,
@@ -556,7 +579,11 @@ class WebPageTest(object):
                         'page_data': {},
                         'navigated': False,
                         'page_result': None,
-                        'script_step_count': 1}
+                        'script_step_count': 1,
+                        'bwIn': in_bps,
+                        'bwOut': out_bps,
+                        'latency': latency,
+                        'plr': plr}
                 # Increase the activity timeout for high-latency tests
                 if 'latency' in job:
                     try:

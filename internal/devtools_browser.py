@@ -165,6 +165,15 @@ class DevtoolsBrowser(object):
             if self.job['noscript']:
                 self.devtools.send_command("Emulation.setScriptExecutionDisabled",
                                            {"value": True}, wait=True)
+            try:
+                self.send_command('Network.emulateNetworkConditions', 
+                                    { 'offline': False,
+                                    'downloadThroughput': self.task['bwIn'],
+                                    'uploadThroughput': self.task['bwOut'],
+                                    'latency': self.task['latency']})
+                logging.debug("Network Emulated...... ")
+            except:
+                logging.debug("Network Emulation NOT working ........")
             self.devtools.prepare_browser()
 
     def on_start_recording(self, task):
