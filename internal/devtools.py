@@ -192,6 +192,10 @@ class DevTools(object):
 
     def prepare_browser(self):
         """Run any one-time startup preparation before testing starts"""
+        if 'bwIn' in self.job:
+            in_bps = int(re.search(r'\d+', str(self.job['bwIn'])).group()) * 1000
+            logging.debug("bandwidth      --------")
+            logging.debug(in_bps)
         logging.debug("self.task ===> ")
         logging.debug(self.task)
         if self.task['width'] == 375:
