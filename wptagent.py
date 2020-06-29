@@ -434,8 +434,6 @@ class WPTAgent(object):
                 print("Error configuring adb. Make sure it is installed and in the path.")
                 ret = False
         self.shaper.remove()
-        logging.debug("self.shaper -------------------------")
-        logging.debug(self.shaper)
         # if not self.shaper.install():
         #     if platform.system() == "Windows":
         #         print("Error configuring traffic shaping, make sure secure boot is disabled.")
