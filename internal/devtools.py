@@ -194,14 +194,7 @@ class DevTools(object):
         """Run any one-time startup preparation before testing starts"""
         logging.debug("self.task ===> ")
         logging.debug(self.task)
-        try:
-            self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': self.task['bwIn'], 'uploadThroughput': self.task['bwOut'], 'latency': self.task['latency']})
-            logging.debug("Network Emulated...... ")
-        except:
-            logging.debug("Network Emulation NOT working ........")
-        # except:
-        #     logging.debug("")
-        
+    
         self.send_command('Target.setAutoAttach',
                           {'autoAttach': True, 'waitForDebuggerOnStart': True})
         response = self.send_command('Target.getTargets', {}, wait=True)
