@@ -166,11 +166,11 @@ class DevtoolsBrowser(object):
                 self.devtools.send_command("Emulation.setScriptExecutionDisabled",
                                            {"value": True}, wait=True)
             try:
-                self.send_command('Network.emulateNetworkConditions', 
-                                    { 'offline': False,
-                                    'downloadThroughput': self.task['bwIn'],
-                                    'uploadThroughput': self.task['bwOut'],
-                                    'latency': self.task['latency']})
+                logging.debug(task['bwIn'])
+                logging.debug(self.task['bwIn'])
+                logging.debug(task['bwOut'])
+                logging.debug(task['latency'])
+                self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': task['bwIn'], 'uploadThroughput': task['bwOut'], 'latency': task['latency']})
                 logging.debug("Network Emulated...... ")
             except:
                 logging.debug("Network Emulation NOT working ........")
