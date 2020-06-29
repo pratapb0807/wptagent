@@ -192,22 +192,12 @@ class DevTools(object):
 
     def prepare_browser(self):
         """Run any one-time startup preparation before testing starts"""
-        if 'bwIn' in self.job:
-            in_bps = int(re.search(r'\d+', str(self.job['bwIn'])).group()) * 1000
-            logging.debug("bandwidth      --------")
-            logging.debug(in_bps)
         logging.debug("self.task ===> ")
         logging.debug(self.task)
-        if self.task['width'] == 375:
-            self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 1572864, 'uploadThroughput': 1572864, 'latency': 70})
-            logging.debug("Network Emulated For 4G LTE ...... ")
-        elif self.task['width'] == 1280:
-            self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 655360, 'uploadThroughput': 131072, 'latency': 28})
-            logging.debug("Network Emulated For Cable ...... ")
-        elif self.task['width'] == 320:
-            self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': 209715, 'uploadThroughput': 98304, 'latency': 150})
-            logging.debug("Network Emulated For 3G Fast ...... ")
-        else:
+        try:
+            self.send_command('Network.emulateNetworkConditions', { 'offline': False, 'downloadThroughput': self.task['bwIn'], 'uploadThroughput': self.task['bwOut'], 'latency': self.task['latency']})
+            logging.debug("Network Emulated...... ")
+        except:
             logging.debug("Network Emulation NOT working ........")
         # except:
         #     logging.debug("")
@@ -222,6 +212,13 @@ class DevTools(object):
                     if target['type'] == 'service_worker':
                         self.send_command('Target.attachToTarget', {'targetId': target['targetId']},
                                            wait=True)
+
+    def emulate_network(self, offline_opt=False, in_bps, out_bps, rtt):
+        try:
+            self.send_command('Network.emulateNetworkConditions', { 'offline': offline_opt, 'downloadThroughput': in_bps, 'uploadThroughput': out_bps, 'latency': rtt})
+            logging.debug("Network Emulated...... ")
+        except:
+            logging.debug("Network Emulation NOT working ........")
 
     def close(self, close_tab=True):
         """Close the dev tools connection"""

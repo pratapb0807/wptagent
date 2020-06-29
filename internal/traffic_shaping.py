@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import time
+from .devtools import DevTools
 
 class TrafficShaper(object):
     """Main traffic-shaper interface"""
@@ -127,7 +128,8 @@ class NoShaper(object):
     def configure(self, in_bps, out_bps, rtt, plr):
         """Enable traffic-shaping"""
         if in_bps > 0 or out_bps > 0 or rtt > 0 or plr > 0:
-            return False
+            logging.debug("inside NoShaper config ................")
+            DevTools.emulate_network(self, in_bps, out_bps, rtt)
         return True
 
 #
