@@ -1,0 +1,12 @@
+FROM python:3.8-slim-buster
+
+COPY . /clock
+
+RUN apt-get update
+RUN apt-get -y upgrade
+RUN pip install apscheduler requests
+RUN apt-get clean
+
+WORKDIR /clock
+
+CMD python clock.py
