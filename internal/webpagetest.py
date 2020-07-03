@@ -422,6 +422,7 @@ class WebPageTest(object):
                                 browsers[name]['version']))
                 browser_versions = ','.join(versions)
                 url += '&browsers=' + quote_plus(browser_versions)
+            url += '&id={0}'.format(os.environ.get('LOCATION')) 
             logging.info("Checking for work: %s", url)
             try:
                 response = self.session.get(url, timeout=30, proxies=proxies)
