@@ -1,4 +1,4 @@
 build:
   docker:
     worker: Dockerfile.worker
-    clock: clock/Dockerfile.clock
+    # clock: clock/Dockerfile.clock
