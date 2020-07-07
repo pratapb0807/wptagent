@@ -1,5 +1,0 @@
-    * Speedcurve Report - Comparison with appropriate note(s) → Jenkins Job ? Mail alert ?
-    * Monitoring/health of agent - operationalize it (along with steps) → High Availability → Mail alert ?
-    * And any workaround in Heroku for Traffic Shaping)
-    * Ideas and steps for Integration with pipeline/build
-    * Operationalize steps (Sandeep to work with Narayan and Joel)
